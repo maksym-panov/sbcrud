@@ -28,13 +28,17 @@ public class Book {
     @UuidGenerator(style = UuidGenerator.Style.TIME)
     private UUID id;
 
-    @Column(length = 31, unique = true)
+    @Column(length = 31, unique = true, nullable = false)
     private String isbn;
 
     @Column(name = "book_name")
     private String bookName;
 
+    @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false)
+    private Integer quantity;
 
     private String description;
 

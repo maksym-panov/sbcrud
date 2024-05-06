@@ -21,6 +21,16 @@ public class CustomerOrderDao {
 
     private CustomerOrderRepository customerOrderRepository;
 
+    public CustomerOrder createOrder(ServiceUser actorUser, Set<OrderBook> orderBooks) {
+        return customerOrderRepository.save(
+                CustomerOrder.builder()
+                        .user(actorUser)
+                        .orderBooks(orderBooks)
+                        .status(OrderStatus.CREATED)
+                        .build()
+        );
+    }
+
     public CustomerOrder getOrderByIdThrowable(UUID id) {
         return customerOrderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find CustomerOrder with id: " + id));
