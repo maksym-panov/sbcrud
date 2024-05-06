@@ -1,11 +1,11 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.repository;
 
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Favourite;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface FavouriteRepository extends CrudRepository<Favourite, UUID> {
+public interface FavouriteRepository extends JpaRepository<Favourite, UUID> {
 }
