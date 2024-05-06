@@ -7,9 +7,12 @@ import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.UserRole;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.repository.ServiceUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -54,6 +57,11 @@ public class ServiceUserDao {
     public ServiceUser getUserByIdThrowable(UUID id) {
         return serviceUserRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find ServiceUser with id: " + id));
+    }
+
+    public ServiceUser getUserByEmailThrowable(String email) {
+        return serviceUserRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Could not find ServiceUser with email: " + email));
     }
 
     public Page<ServiceUser> getUsersPageable(int pageNumber, int pageSize) {

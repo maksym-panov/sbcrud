@@ -20,7 +20,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
             "inner join Genre g on g.id=bg.genre.id " +
             "where g.genreName in :genres " +
             "group by b.id " +
-            "having count(distinct g) = :genres"
+            "having count(distinct g) = :genresSize"
     )
     Set<Book> findBooksByGenres(Set<Genre> genres, int genresSize);
 
