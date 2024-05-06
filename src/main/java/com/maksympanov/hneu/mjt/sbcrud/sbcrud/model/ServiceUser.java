@@ -43,6 +43,10 @@ public class ServiceUser {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
+
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private Set<Favourite> favourites = new HashSet<>();
 

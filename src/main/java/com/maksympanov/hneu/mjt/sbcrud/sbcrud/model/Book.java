@@ -45,6 +45,7 @@ public class Book {
     @Column(name = "image_uri")
     private String imageUri;
 
+    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_genre",
