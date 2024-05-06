@@ -1,22 +1,17 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.UUID;
 
 @Entity
-@Table(name = "book_genre")
+@Table(name = "book_genre", schema = "sbc_schema")
 public class BookGenre {
 
     @Id
-    @UuidGenerator(style = UuidGenerator.Style.TIME)
-    private UUID id;
-
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;

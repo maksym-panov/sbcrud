@@ -6,8 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.generator.EventType;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customer_order")
+@Table(name = "customer_order", schema = "sbc_schema")
 @Data
 @Builder
 @NoArgsConstructor
@@ -30,7 +31,7 @@ public class CustomerOrder {
     @JoinColumn(name = "user_id")
     private ServiceUser user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<OrderBook> orderBooks = new HashSet<>();
 
     @Version
@@ -41,7 +42,7 @@ public class CustomerOrder {
     private LocalDateTime dateCreated;
 
     @Column(name = "date_modified")
-    @LastModifiedDate
+    @Generated(event = { EventType.INSERT, EventType.UPDATE }, sql = "CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
 
 }

@@ -44,11 +44,10 @@ CREATE TABLE sbc_schema.book(
 );
 
 CREATE TABLE sbc_schema.book_genre(
-    id UUID NOT NULL,
     book_id UUID NOT NULL,
     genre_id UUID NOT NULL,
 
-    CONSTRAINT book_genre_pk PRIMARY KEY (id),
+    CONSTRAINT book_genre_pk PRIMARY KEY (book_id, genre_id),
     CONSTRAINT book_fk FOREIGN KEY (book_id) REFERENCES book,
     CONSTRAINT genre_fk FOREIGN KEY (genre_id) REFERENCES genre
 );

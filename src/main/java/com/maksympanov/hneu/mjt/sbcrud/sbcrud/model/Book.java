@@ -6,8 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.generator.EventType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "book")
+@Table(name = "book", schema = "sbc_schema")
 @Data
 @Builder
 @NoArgsConstructor
@@ -40,9 +41,10 @@ public class Book {
     @Column(name = "image_uri")
     private String imageUri;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "book_genre",
+            schema = "sbc_schema",
             joinColumns = { @JoinColumn(name = "book_id") },
             inverseJoinColumns = { @JoinColumn(name = "genre_id") }
     )
@@ -56,6 +58,7 @@ public class Book {
     private LocalDateTime dateCreated;
 
     @Column(name = "date_modified")
-    @LastModifiedDate
+    @Generated(event = { EventType.INSERT, EventType.UPDATE }, sql = "CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
+
 }

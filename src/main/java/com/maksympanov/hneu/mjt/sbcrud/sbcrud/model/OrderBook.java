@@ -10,7 +10,7 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order_book")
+@Table(name = "order_book", schema = "sbc_schema")
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class OrderBook {
     @JoinColumn(name = "order_id")
     private CustomerOrder order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
 

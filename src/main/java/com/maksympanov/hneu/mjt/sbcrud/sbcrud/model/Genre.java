@@ -6,14 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.generator.EventType;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "genre")
+@Table(name = "genre", schema = "sbc_schema")
 @Data
 @Builder
 @NoArgsConstructor
@@ -37,7 +38,7 @@ public class Genre {
     private LocalDateTime dateCreated;
 
     @Column(name = "date_modified")
-    @LastModifiedDate
+    @Generated(event = { EventType.INSERT, EventType.UPDATE }, sql = "CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
 
 }
