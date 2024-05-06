@@ -31,6 +31,10 @@ public class CustomerOrder {
     @JoinColumn(name = "user_id")
     private ServiceUser user;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<OrderBook> orderBooks = new HashSet<>();
 
