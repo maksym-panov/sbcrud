@@ -1,6 +1,6 @@
-CREATE SCHEMA sbc_schema;
+CREATE SCHEMA IF NOT EXISTS sbc_schema;
 
-CREATE TABLE ServiceUser(
+CREATE TABLE sbc_schema.ServiceUser(
     id UUID NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone_number VARCHAR(30),
@@ -16,7 +16,7 @@ CREATE TABLE ServiceUser(
     CONSTRAINT user_role_values CHECK (role IN ( 'USER', 'VENDOR', 'ADMIN' ) )
 );
 
-CREATE TABLE Genre(
+CREATE TABLE sbc_schema.Genre(
     id UUID NOT NULL,
     genre_name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE Genre(
     CONSTRAINT genre_name_ak UNIQUE (genre_name)
 );
 
-CREATE TABLE Book(
+CREATE TABLE sbc_schema.Book(
     id UUID NOT NULL,
     isbn VARCHAR(31) NOT NULL,
     book_name VARCHAR(255) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE Book(
     CONSTRAINT isbn_ak UNIQUE (isbn)
 );
 
-CREATE TABLE BookGenre(
+CREATE TABLE sbc_schema.BookGenre(
     book_id UUID NOT NULL,
     genre_id UUID NOT NULL,
     version INTEGER NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE BookGenre(
     CONSTRAINT genre_fk FOREIGN KEY (genre_id) REFERENCES Genre
 );
 
-CREATE TABLE CustomerOrder(
+CREATE TABLE sbc_schema.CustomerOrder(
     id UUID NOT NULL,
     user_id UUID NOT NULL,
     version INTEGER NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE CustomerOrder(
     CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES ServiceUser
 );
 
-CREATE TABLE OrderItem(
+CREATE TABLE sbc_schema.OrderItem(
     order_id UUID NOT NULL,
     book_id UUID NOT NULL,
     quantity INTEGER NOT NULL,
