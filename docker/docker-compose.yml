@@ -1,0 +1,46 @@
+networks:
+  sbc_network:
+    name: sbc_network
+
+volumes:
+  sbc_redis_data:
+    name: sbc_redis_data
+
+services:
+  sbc-postgres:
+    container_name: sbc-postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=sbc_db
+    volumes:
+      - type: tmpfs
+        target: /data/db
+    networks:
+      - sbc_network
+
+  sbc-redis:
+    image: redis:6.2.6
+    container_name: sbc-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - sbc_redis_data:/data
+    networks:
+      - sbc_network
+
+  sbc-redis-commander:
+    container_name: sbc-redis-commander-srv
+    hostname: sbc-redis-commander-srv
+    image: rediscommander/redis-commander:latest
+    depends_on:
+      - sbc-redis
+    environment:
+      - REDIS_HOSTS=local-redis:sbc-redis-srv:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - sbc_network
