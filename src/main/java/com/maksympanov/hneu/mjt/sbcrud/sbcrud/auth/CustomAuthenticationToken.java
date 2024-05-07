@@ -6,11 +6,10 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 @Getter
 public class CustomAuthenticationToken extends AbstractAuthenticationToken {
 
-    private AuthenticatedUser subject;
+    private final AuthenticatedUser subject;
 
     public CustomAuthenticationToken(AuthenticatedUser subject) {
         super(subject.getAuthorities());
-        this.setDetails(subject);
         this.subject = subject;
         setAuthenticated(true);
     }

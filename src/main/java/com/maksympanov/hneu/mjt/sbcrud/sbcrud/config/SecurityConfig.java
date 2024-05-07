@@ -33,21 +33,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(ar ->
-                        ar.requestMatchers(APIPrefixes.USER + "/**").hasAnyAuthority(USER.name(), ADMIN.name())
-                        .requestMatchers(APIPrefixes.ADMIN + "/**").hasAnyAuthority(ADMIN.name())
-                        .requestMatchers(APIPrefixes.VENDOR + "/**").hasAnyAuthority(VENDOR.name(), ADMIN.name())
-                        .requestMatchers(
-                                APIPrefixes.PUBLIC + "/**",
-                                "/docs/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
-                        .anyRequest()
-                        .authenticated()
-                )
-                .addFilter(jwtFilter(authenticationManager))
-                .addFilter(credentialsAuthFilter(authenticationManager))
-                .build();
+                        ar.requestMatchers(APIPrefixes.USER + "/**").hasAnyRole(USER.name())
+                                .requestMatchers(APIPrefixes.VENDOR + "/**").hasAnyRole(VENDOR.name())
+                                .requestMatchers(APIPrefixes.ADMIN + "/**").hasAnyRole(ADMIN.name())
+                                .requestMatchers(
+                                        APIPrefixes.PUBLIC + "/**",
+                                        "/docs/**",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
+                                .anyRequest()
+                                .authenticated()
+                        )
+                        .addFilter(jwtFilter(authenticationManager))
+                        .addFilter(credentialsAuthFilter(authenticationManager))
+                        .build();
     }
 
     @Bean

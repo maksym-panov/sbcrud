@@ -1,6 +1,5 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth;
 
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.LoginDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.UserAuthException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
