@@ -1,6 +1,9 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.AbstractResponseDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.BackendErrorCode;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.MessageResponseDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.TokenDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +14,12 @@ import org.springframework.http.MediaType;
 
 public class JwtProviderService {
 
+    private final ObjectMapper mapper;
+
+    public JwtProviderService() {
+        this.mapper = new ObjectMapper();
+    }
+
     public void addHeadersInResponse(HttpServletResponse response, String jwtToken) {
         response.addHeader(HttpHeaders.AUTHORIZATION, jwtToken);
         response.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
@@ -19,9 +28,17 @@ public class JwtProviderService {
 
     @SneakyThrows
     public void writeTokenInResponse(HttpServletResponse response, String jwtToken) {
-        var mapper = new ObjectMapper();
         jwtToken = "Bearer " + jwtToken;
-        mapper.writeValue(response.getOutputStream(), new TokenDto(jwtToken));
+        var tokenDto = new TokenDto(jwtToken);
+        var rv = new AbstractResponseDto<>(tokenDto);
+        mapper.writeValue(response.getOutputStream(), rv);
+    }
+
+    @SneakyThrows
+    public void writeAuthenticationErrorInResponse(HttpServletResponse response, BackendErrorCode errorCode) {
+        var error = MessageResponseDto.failure(errorCode, "Authentication failed");
+        var rv = new AbstractResponseDto<>(error);
+        mapper.writeValue(response.getOutputStream(), rv);
     }
 
     public String getAuthorizationNullable(HttpServletRequest request) {

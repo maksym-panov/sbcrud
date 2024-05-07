@@ -3,7 +3,7 @@ package com.maksympanov.hneu.mjt.sbcrud.sbcrud.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth.AuthenticatedUser;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth.AuthenticatedUserSerializable;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.UserAuthException;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.AuthException;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
@@ -95,7 +95,7 @@ public class JwtService {
     private JWTClaimsSet parseToken(String token) {
         var claims = parseTokenHelper(token);
         if (!(claims.getAudience().contains("audience"))) {
-            throw new UserAuthException("Wrong audience in JWT");
+            throw new AuthException("Wrong audience in JWT");
         }
 
         long expirationTime = claims.getExpirationTime().getTime();
@@ -103,7 +103,7 @@ public class JwtService {
 
 
         if (!(expirationTime >= currentTime)) {
-            throw new UserAuthException("Token is expired");
+            throw new AuthException("Token is expired");
         }
 
         return claims;
@@ -117,10 +117,10 @@ public class JwtService {
                 return JWTClaimsSet.parse(jwsObject.getPayload().toJSONObject());
             }
         } catch (JOSEException | ParseException e) {
-            throw new UserAuthException(e.getMessage());
+            throw new AuthException(e.getMessage());
         }
 
-        throw new UserAuthException("Unknown token owner");
+        throw new AuthException("Unknown token owner");
     }
 
 }

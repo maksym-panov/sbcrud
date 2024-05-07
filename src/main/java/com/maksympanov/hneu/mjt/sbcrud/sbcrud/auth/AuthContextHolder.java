@@ -1,6 +1,6 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth;
 
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.NonAuthenticatedException;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.AuthException;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.ServiceUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +21,6 @@ public class AuthContextHolder {
             return (CustomAuthenticationToken) auth;
         }
 
-        throw new NonAuthenticatedException("User is not authenticated");
+        throw new AuthException("User is not authenticated");
     }
 }

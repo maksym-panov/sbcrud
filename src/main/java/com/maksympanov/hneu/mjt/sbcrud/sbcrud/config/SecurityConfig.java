@@ -1,5 +1,6 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.config;
 
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth.LoginFailureHandler;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.filter.CredentialsAuthenticationFilter;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth.CredentialsAuthenticationProvider;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth.LoginSuccessHandler;
@@ -59,14 +60,19 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
     public LoginSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler(jwtProviderService(), jwtService());
     }
 
+    public LoginFailureHandler loginFailureHandler() {
+        return new LoginFailureHandler(jwtProviderService());
+    }
+
+
     public CredentialsAuthenticationFilter credentialsAuthFilter(AuthenticationManager authenticationManager) {
         var filter = new CredentialsAuthenticationFilter(APIPrefixes.PUBLIC + "/login", authenticationManager);
         filter.setAuthenticationSuccessHandler(loginSuccessHandler());
+        filter.setAuthenticationFailureHandler(loginFailureHandler());
         return filter;
     }
 

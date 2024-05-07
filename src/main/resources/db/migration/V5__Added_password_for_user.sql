@@ -1,1 +1,1 @@
-ALTER TABLE sbc_schema.service_user ADD COLUMN password_hash VARCHAR(2047) NOT NULL DEFAULT 'Password';
+ALTER TABLE sbc_schema.service_user ADD COLUMN password_hash VARCHAR(2047) NOT NULL DEFAULT '---';

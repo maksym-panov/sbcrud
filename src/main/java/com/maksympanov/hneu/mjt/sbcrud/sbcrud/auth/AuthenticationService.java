@@ -1,7 +1,7 @@
 package com.maksympanov.hneu.mjt.sbcrud.sbcrud.auth;
 
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dao.ServiceUserDao;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.UserAuthException;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.AuthException;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.ServiceUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,7 @@ public class AuthenticationService {
         var user = serviceUserDao.getUserByEmailThrowable(username);
 
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new UserAuthException("Failed login attempt, username: " + username);
+            throw new AuthException("Failed login attempt, username: " + username);
         }
 
         return user;
