@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface FavouriteRepository extends JpaRepository<Favourite, UUID> {
 
-    Set<Favourite> findAllByUserId(UUID userId);
+    List<Favourite> findAllByUserId(UUID userId);
 
 }

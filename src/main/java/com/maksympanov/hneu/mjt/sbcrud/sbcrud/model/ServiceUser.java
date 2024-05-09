@@ -53,7 +53,7 @@ public class ServiceUser {
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
-    private Set<Favourite> favourites = new HashSet<>();
+    private List<Favourite> favourites = new HashList<>();
 
     @Version
     private Integer version;
@@ -67,7 +67,7 @@ public class ServiceUser {
     private LocalDateTime dateModified;
 
     @JsonIgnore
-    public Set<GrantedAuthority> getAuthorities() {
+    public List<GrantedAuthority> getAuthorities() {
         if (role == UserRole.USER || role == UserRole.VENDOR) {
             return Set.of(new CustomGrantedAuthority(role));
         }

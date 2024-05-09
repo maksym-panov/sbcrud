@@ -12,9 +12,7 @@ import org.hibernate.generator.EventType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "book", schema = "sbc_schema")
@@ -53,7 +51,7 @@ public class Book {
             joinColumns = { @JoinColumn(name = "book_id") },
             inverseJoinColumns = { @JoinColumn(name = "genre_id") }
     )
-    private Set<Genre> genres = new HashSet<>();
+    private List<Genre> genres = new ArrayList<>();
 
     @Version
     private Integer version;

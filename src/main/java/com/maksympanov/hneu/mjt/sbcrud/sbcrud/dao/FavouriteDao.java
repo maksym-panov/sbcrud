@@ -24,7 +24,7 @@ public class FavouriteDao {
         );
     }
 
-    public Set<Favourite> getFavouritesOfUser(ServiceUser user) {
+    public List<Favourite> getFavouritesOfUser(ServiceUser user) {
         return favouriteRepository.findAllByUserId(user.getId());
     }
 

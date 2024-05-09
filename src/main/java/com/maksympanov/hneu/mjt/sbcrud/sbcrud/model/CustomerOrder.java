@@ -37,7 +37,7 @@ public class CustomerOrder {
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<OrderBook> orderBooks = new HashSet<>();
+    private List<OrderBook> orderBooks = new HashList<>();
 
     @Version
     private Integer version;

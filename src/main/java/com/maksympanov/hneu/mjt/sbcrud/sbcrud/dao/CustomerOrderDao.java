@@ -21,7 +21,7 @@ public class CustomerOrderDao {
 
     private CustomerOrderRepository customerOrderRepository;
 
-    public CustomerOrder createOrder(ServiceUser actorUser, Set<OrderBook> orderBooks) {
+    public CustomerOrder createOrder(ServiceUser actorUser, List<OrderBook> orderBooks) {
         return customerOrderRepository.save(
                 CustomerOrder.builder()
                         .user(actorUser)
@@ -40,7 +40,7 @@ public class CustomerOrderDao {
         return customerOrderRepository.findById(id).orElse(null);
     }
 
-    public Set<CustomerOrder> getAllOrdersOfUser(ServiceUser user) {
+    public List<CustomerOrder> getAllOrdersOfUser(ServiceUser user) {
         return customerOrderRepository.findAllByUserId(user.getId());
     }
 
@@ -54,7 +54,7 @@ public class CustomerOrderDao {
         return customerOrderRepository.save(order);
     }
 
-    public CustomerOrder updateWithOrderBooks(CustomerOrder order, Set<OrderBook> orderBooks) {
+    public CustomerOrder updateWithOrderBooks(CustomerOrder order, List<OrderBook> orderBooks) {
         order.setOrderBooks(orderBooks);
         return customerOrderRepository.save(order);
     }

@@ -69,8 +69,8 @@ public class ServiceUserDao {
         return serviceUserRepository.findAll(request);
     }
 
-    public ServiceUser updateWithFavourites(ServiceUser user, Set<Favourite> newFavourites) {
-        newFavourites = newFavourites == null ? new HashSet<>() : newFavourites;
+    public ServiceUser updateWithFavourites(ServiceUser user, List<Favourite> newFavourites) {
+        newFavourites = newFavourites == null ? new HashList<>() : newFavourites;
         user.setFavourites(newFavourites);
         return serviceUserRepository.save(user);
     }

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -22,7 +22,7 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
             "group by b.id " +
             "having count(distinct g) = :genresSize"
     )
-    Set<Book> findBooksByGenres(Set<Genre> genres, int genresSize);
+    List<Book> findBooksByGenres(List<Genre> genres, int genresSize);
 
     Page<Book> findByBookNameContaining(String partialName, Pageable pageable);
 

@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,14 +24,16 @@ public class BookDao {
             String isbn,
             String bookName,
             String description,
+            Integer quantity,
             BigDecimal price,
             String imageUri,
-            Set<Genre> genres
+            List<Genre> genres
     ) {
         var book = Book.builder()
                 .isbn(isbn)
                 .bookName(bookName)
                 .description(description)
+                .quantity(quantity)
                 .price(price)
                 .imageUri(imageUri)
                 .genres(genres)
@@ -45,10 +47,6 @@ public class BookDao {
                 .orElseThrow(() -> new NotFoundException("Could not find Book with id: " + id));
     }
 
-    public Book getBookByIdNullable(UUID id) {
-        return bookRepository.findById(id).orElse(null);
-    }
-
     public Page<Book> getBooksPageable(int pageNumber, int pageSize) {
         var request = PageRequest.of(pageNumber, pageSize, Sort.by("book_name", "price"));
         return bookRepository.findAll(request);
@@ -59,22 +57,7 @@ public class BookDao {
         return bookRepository.findByBookNameContaining(partialName, request);
     }
 
-    public Set<Book> getByGenres(Set<Genre> genres) {
-        return bookRepository.findBooksByGenres(genres, genres.size());
-    }
-
-    public Book updateWithGenres(Book book, Set<Genre> genres) {
-        book.setGenres(genres);
-        return bookRepository.save(book);
-    }
-
-    public Book updateWithImageUri(Book book, String imageUri) {
-        book.setImageUri(imageUri);
-        return bookRepository.save(book);
-    }
-
-    public Book updateWithQuantity(Book book, int newQuantity) {
-        book.setQuantity(newQuantity);
+    public Book updateNewInfo(Book book) {
         return bookRepository.save(book);
     }
 

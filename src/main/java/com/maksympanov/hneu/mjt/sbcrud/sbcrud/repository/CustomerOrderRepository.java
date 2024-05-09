@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, UUID> {
 
-    Set<CustomerOrder> findAllByUserId(UUID userId);
+    List<CustomerOrder> findAllByUserId(UUID userId);
 
 }

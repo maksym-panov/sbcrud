@@ -17,9 +17,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.UserRole.*;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @AllArgsConstructor
@@ -30,7 +33,7 @@ public class SecurityConfig {
     @Bean
     @SneakyThrows
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) {
-        return http.cors(Customizer.withDefaults())
+        return http.cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(ar ->
@@ -45,10 +48,10 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated()
-                        )
-                        .addFilter(jwtFilter(authenticationManager))
-                        .addFilter(credentialsAuthFilter(authenticationManager))
-                        .build();
+                )
+                .addFilter(jwtFilter(authenticationManager))
+                .addFilter(credentialsAuthFilter(authenticationManager))
+                .build();
     }
 
     @Bean
