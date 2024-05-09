@@ -2,8 +2,11 @@ package com.maksympanov.hneu.mjt.sbcrud.sbcrud.controller;
 
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.book.BookDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.book.BooksDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouriteDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouritesDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.ProductGenreDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Book;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Favourite;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Genre;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +45,24 @@ public class DataMapper {
                                 .build()
                 )
                 .toList();
+    }
+
+    public FavouritesDto mapFavouritesDto(List<Favourite> favourites) {
+        return FavouritesDto.builder()
+                .favourites(
+                        favourites.stream()
+                                .map(this::mapFavouriteDto)
+                                .toList()
+                )
+                .build();
+    }
+
+    public FavouriteDto mapFavouriteDto(Favourite favourite) {
+        return FavouriteDto.builder()
+                .id(favourite.getId().toString())
+                .bookId(favourite.getBook().getId().toString())
+                .bookName(favourite.getBook().getBookName())
+                .build();
     }
     
 }
