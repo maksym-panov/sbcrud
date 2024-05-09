@@ -45,8 +45,7 @@ public class GenreDao {
         return genreRepository.findGenresByGenreNameContaining(partialName, request);
     }
 
-    public Genre updateWithName(Genre genre, String newName) {
-        genre.setGenreName(newName);
+    public Genre updateFullData(Genre genre) {
         return genreRepository.save(genre);
     }
 

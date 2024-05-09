@@ -21,7 +21,6 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping
 @AllArgsConstructor
 public class BookController {
 

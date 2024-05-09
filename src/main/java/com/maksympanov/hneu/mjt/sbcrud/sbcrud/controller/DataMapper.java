@@ -4,6 +4,8 @@ import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.book.BookDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.book.BooksDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouriteDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouritesDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenreDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenresDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.ProductGenreDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Book;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Favourite;
@@ -62,6 +64,24 @@ public class DataMapper {
                 .id(favourite.getId().toString())
                 .bookId(favourite.getBook().getId().toString())
                 .bookName(favourite.getBook().getBookName())
+                .build();
+    }
+
+    public GenresDto mapGenresDto(List<Genre> genres) {
+        return GenresDto.builder()
+                .genres(
+                        genres.stream()
+                                .map(this::mapGenreDto)
+                                .toList()
+                )
+                .build();
+    }
+
+    public GenreDto mapGenreDto(Genre genre) {
+        return GenreDto.builder()
+                .genreId(genre.getId().toString())
+                .genreName(genre.getGenreName())
+                .description(genre.getDescription())
                 .build();
     }
     
