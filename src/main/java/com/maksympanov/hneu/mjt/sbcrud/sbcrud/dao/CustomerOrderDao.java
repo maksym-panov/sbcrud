@@ -12,7 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,22 +22,17 @@ public class CustomerOrderDao {
     private CustomerOrderRepository customerOrderRepository;
 
     public CustomerOrder createOrder(ServiceUser actorUser, List<OrderBook> orderBooks) {
-        return customerOrderRepository.save(
-                CustomerOrder.builder()
-                        .user(actorUser)
-                        .orderBooks(orderBooks)
-                        .status(OrderStatus.CREATED)
-                        .build()
-        );
+        var order = CustomerOrder.builder()
+                .user(actorUser)
+                .status(OrderStatus.CREATED)
+                .build();
+        order.bindAllOrderBooks(orderBooks);
+        return customerOrderRepository.save(order);
     }
 
     public CustomerOrder getOrderByIdThrowable(UUID id) {
         return customerOrderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find CustomerOrder with id: " + id));
-    }
-
-    public CustomerOrder getOrderByIdNullable(UUID id) {
-        return customerOrderRepository.findById(id).orElse(null);
     }
 
     public List<CustomerOrder> getAllOrdersOfUser(ServiceUser user) {

@@ -5,7 +5,6 @@ import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dao.ServiceUserDao;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.exception.PasswordMismatchException;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.ServiceUser;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.UserRole;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

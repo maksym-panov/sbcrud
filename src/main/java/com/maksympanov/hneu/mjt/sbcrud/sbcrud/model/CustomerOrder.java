@@ -11,9 +11,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.generator.EventType;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "customer_order", schema = "sbc_schema")
@@ -37,7 +35,7 @@ public class CustomerOrder {
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<OrderBook> orderBooks = new HashList<>();
+    private List<OrderBook> orderBooks = new ArrayList<>();
 
     @Version
     private Integer version;
@@ -50,4 +48,8 @@ public class CustomerOrder {
     @Generated(event = { EventType.INSERT, EventType.UPDATE }, sql = "CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
 
+    public void bindAllOrderBooks(List<OrderBook> orderBooks) {
+        this.orderBooks = orderBooks;
+        orderBooks.forEach( (ob) -> ob.setOrder(this) );
+    }
 }

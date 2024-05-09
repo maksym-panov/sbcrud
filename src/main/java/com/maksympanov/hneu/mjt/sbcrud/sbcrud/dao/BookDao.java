@@ -47,6 +47,10 @@ public class BookDao {
                 .orElseThrow(() -> new NotFoundException("Could not find Book with id: " + id));
     }
 
+    public Book getBookByIdNullable(UUID id) {
+        return bookRepository.findById(id).orElse(null);
+    }
+
     public Page<Book> getBooksPageable(int pageNumber, int pageSize) {
         var request = PageRequest.of(pageNumber, pageSize, Sort.by("book_name", "price"));
         return bookRepository.findAll(request);

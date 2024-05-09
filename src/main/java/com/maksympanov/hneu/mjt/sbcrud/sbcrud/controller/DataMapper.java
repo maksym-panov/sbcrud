@@ -7,14 +7,15 @@ import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouritesDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenreDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenresDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.ProductGenreDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.order.CustomerOrderDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.order.CustomerOrdersDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.order.OrderBookDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.user.UserInfoDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.user.UsersInfoDto;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Book;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Favourite;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Genre;
-import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.ServiceUser;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.*;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -108,5 +109,48 @@ public class DataMapper {
                 .role(user.getRole())
                 .build();
     }
-    
+
+    public CustomerOrdersDto mapCustomerOrdersDto(List<CustomerOrder> orders) {
+        return CustomerOrdersDto.builder()
+                .orders(
+                        orders.stream()
+                                .map(this::mapCustomerOrderDto)
+                                .toList()
+                )
+                .build();
+    }
+
+    public CustomerOrderDto mapCustomerOrderDto(CustomerOrder order) {
+        var orderBooks = order.getOrderBooks()
+                .stream()
+                .map(this::mapOrderBookDto)
+                .toList();
+
+        var totalOpt = orderBooks.stream()
+                .map(OrderBookDto::getSummary)
+                .reduce(BigDecimal::add);
+
+        var total = totalOpt.orElse(BigDecimal.ZERO);
+
+        return CustomerOrderDto.builder()
+                .id(order.getId().toString())
+                .status(order.getStatus())
+                .orderBooks(orderBooks)
+                .total(total)
+                .build();
+    }
+
+    public OrderBookDto mapOrderBookDto(OrderBook orderBook) {
+        var bookPrice = orderBook.getBook().getPrice();
+        var quantity = orderBook.getQuantity();
+
+        return OrderBookDto.builder()
+                .id(orderBook.getId().toString())
+                .bookName(orderBook.getBook().getBookName())
+                .pricePerBook(bookPrice)
+                .quantity(quantity)
+                .summary(bookPrice.multiply(BigDecimal.valueOf(quantity)))
+                .build();
+    }
+
 }
