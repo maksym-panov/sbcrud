@@ -7,9 +7,12 @@ import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.favourite.FavouritesDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenreDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.GenresDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.genre.ProductGenreDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.user.UserInfoDto;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.dto.user.UsersInfoDto;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Book;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Favourite;
 import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.Genre;
+import com.maksympanov.hneu.mjt.sbcrud.sbcrud.model.ServiceUser;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -82,6 +85,27 @@ public class DataMapper {
                 .genreId(genre.getId().toString())
                 .genreName(genre.getGenreName())
                 .description(genre.getDescription())
+                .build();
+    }
+
+    public UsersInfoDto mapUsersInfoDto(List<ServiceUser> users) {
+        return UsersInfoDto.builder()
+                .users(
+                        users.stream()
+                                .map(this::mapUserInfoDto)
+                                .toList()
+                )
+                .build();
+    }
+
+    public UserInfoDto mapUserInfoDto(ServiceUser user) {
+        return UserInfoDto.builder()
+                .id(user.getId().toString())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .role(user.getRole())
                 .build();
     }
     

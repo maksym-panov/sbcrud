@@ -18,4 +18,11 @@ public class RestControllerAdvice {
         return MessageResponseDto.failure(BackendErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
     }
 
+    @ExceptionHandler(PasswordMismatchException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageResponseDto handlePasswordMismatchException(PasswordMismatchException ex) {
+        return MessageResponseDto.failure(BackendErrorCode.PASSWORD_MISMATCH, ex.getMessage());
+    }
+
 }

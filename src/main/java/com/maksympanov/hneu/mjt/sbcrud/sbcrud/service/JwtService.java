@@ -78,7 +78,7 @@ public class JwtService {
         var builder = new JWTClaimsSet.Builder();
 
         builder
-                .audience("audience")
+                .audience("sbcrud_audience")
                 .subject(mapper.writeValueAsString(subject))
                 .expirationTime(new Date(System.currentTimeMillis() + expiration))
                 .issueTime(new Date())

@@ -11,14 +11,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.generator.EventType;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Entity
 @Table(name = "service_user", schema = "sbc_schema")
@@ -53,7 +48,7 @@ public class ServiceUser {
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
-    private List<Favourite> favourites = new HashList<>();
+    private List<Favourite> favourites = new ArrayList<>();
 
     @Version
     private Integer version;
@@ -67,13 +62,13 @@ public class ServiceUser {
     private LocalDateTime dateModified;
 
     @JsonIgnore
-    public List<GrantedAuthority> getAuthorities() {
+    public List<CustomGrantedAuthority> getAuthorities() {
         if (role == UserRole.USER || role == UserRole.VENDOR) {
-            return Set.of(new CustomGrantedAuthority(role));
+            return List.of(new CustomGrantedAuthority(role));
         }
         return Arrays.stream(UserRole.values())
                 .map( CustomGrantedAuthority::new )
-                .collect(Collectors.toSet());
+                .toList();
     }
 
 }
