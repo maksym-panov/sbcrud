@@ -21,7 +21,7 @@ public class ChangePasswordDto {
 
     @AssertTrue
     public boolean isPasswordValid() {
-        String regex = "^(?=.*\\p{Lu})(?=.*\\p{Ll})(?=.*\\d)(?=.*[!@#$%^&*()_+]).{10,}$";
+        var regex = "^(?=.*\\p{Lu})(?=.*\\p{Ll})(?=.*\\d)(?=.*[!@#$%^&*()_+]).{10,}$";
         var pattern = Pattern.compile(regex);
         var matcher = pattern.matcher(newPassword);
         return matcher.matches();

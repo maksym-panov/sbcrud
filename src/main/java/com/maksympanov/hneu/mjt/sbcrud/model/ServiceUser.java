@@ -61,7 +61,6 @@ public class ServiceUser {
     @Generated(event = { EventType.INSERT, EventType.UPDATE }, sql = "CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
 
-    @JsonIgnore
     public List<CustomGrantedAuthority> getAuthorities() {
         if (role == UserRole.USER || role == UserRole.VENDOR) {
             return List.of(new CustomGrantedAuthority(role));
