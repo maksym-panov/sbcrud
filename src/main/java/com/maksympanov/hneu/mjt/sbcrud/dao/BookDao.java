@@ -52,12 +52,12 @@ public class BookDao {
     }
 
     public Page<Book> getBooksPageable(int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("book_name", "price"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("bookName", "price"));
         return bookRepository.findAll(request);
     }
 
     public Page<Book> getBooksByPartialName(String partialName, int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("book_name"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("bookName"));
         return bookRepository.findByBookNameContaining(partialName, request);
     }
 

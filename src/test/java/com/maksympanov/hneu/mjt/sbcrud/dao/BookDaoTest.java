@@ -149,7 +149,7 @@ public class BookDaoTest {
         assertThat(resultPage).isNotNull();
         assertThat(expectedPage).isEqualTo(resultPage);
 
-        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("book_name", "price"));
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("bookName", "price"));
         verify(bookRepository, times(1)).findAll(pageRequest);
     }
 
@@ -181,7 +181,7 @@ public class BookDaoTest {
         assertThat(resultPage).isNotNull();
         assertThat(expectedPage).isEqualTo(resultPage);
 
-        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("book_name"));
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("bookName"));
         verify(bookRepository, times(1)).findByBookNameContaining(partialName, pageRequest);
     }
 
