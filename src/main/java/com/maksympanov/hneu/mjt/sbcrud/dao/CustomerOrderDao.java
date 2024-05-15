@@ -40,7 +40,7 @@ public class CustomerOrderDao {
     }
 
     public Page<CustomerOrder> getOrders(int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("date_created"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("dateCreated"));
         return customerOrderRepository.findAll(request);
     }
 

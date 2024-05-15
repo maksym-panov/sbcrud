@@ -59,7 +59,7 @@ public class ServiceUserDao {
     }
 
     public Page<ServiceUser> getUsersPageable(int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("date_created"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("dateCreated"));
         return serviceUserRepository.findAll(request);
     }
 

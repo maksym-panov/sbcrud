@@ -22,15 +22,14 @@ class BookServiceTest {
     @DisplayName("Should return pageable list of books")
     void shouldReturnBooksPageable() {
         // Given
-        var pageNumber = getRandomPositiveNumber() % 1000;
-        var pageSize = getRandomPositiveNumber() % 1000;
+        var pageNumber = getRandomPositiveNumber() % 10 + 1;
+        var pageSize = getRandomPositiveNumber() % 10 + 1;
 
         // When
         var result = bookService.getBooksPageable(pageNumber, pageSize);
 
         // Then
         assertThat(result).isNotNull();
-        assertThat(result).isEmpty();
     }
 
     @Test

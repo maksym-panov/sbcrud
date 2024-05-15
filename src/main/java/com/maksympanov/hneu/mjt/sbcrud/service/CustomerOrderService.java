@@ -78,6 +78,7 @@ public class CustomerOrderService {
 
         var orderBooksManaged = newOrderBooks.stream()
                 .map( this::mapBookIdToOrderBook )
+                .peek( ob -> ob.setOrder(order) )
                 .filter( ob -> Objects.nonNull(ob.getBook()) )
                 .toList();
 

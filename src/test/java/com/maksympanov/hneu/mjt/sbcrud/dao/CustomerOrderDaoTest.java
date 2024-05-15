@@ -124,7 +124,7 @@ class CustomerOrderDaoTest {
         assertThat(resultPage).isNotNull();
         assertThat(expectedPage).isEqualTo(resultPage);
 
-        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("date_created"));
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("dateCreated"));
         verify(customerOrderRepository, times(1)).findAll(pageRequest);
     }
 

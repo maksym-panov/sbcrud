@@ -34,7 +34,7 @@ public class CustomerOrder {
     private OrderStatus status;
 
     @Builder.Default
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", orphanRemoval = true,  cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderBook> orderBooks = new ArrayList<>();
 
     @Version
