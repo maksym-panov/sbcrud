@@ -155,7 +155,7 @@ public class GenreDaoTest {
         assertThat(resultPage).isNotNull();
         assertThat(expectedPage).isEqualTo(resultPage);
 
-        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("genre_name"));
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("genreName"));
         verify(genreRepository, times(1)).findAll(pageRequest);
     }
 
@@ -192,7 +192,7 @@ public class GenreDaoTest {
         assertThat(resultPage).isNotNull();
         assertThat(expectedPage).isEqualTo(resultPage);
 
-        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("genre_name"));
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("genreName"));
         verify(genreRepository, times(1)).findGenresByGenreNameContaining(partialName, pageRequest);
     }
 

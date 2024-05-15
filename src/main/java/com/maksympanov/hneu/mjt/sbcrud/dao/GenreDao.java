@@ -36,12 +36,12 @@ public class GenreDao {
     }
 
     public Page<Genre> getGenresPageable(int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("genre_name"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("genreName"));
         return genreRepository.findAll(request);
     }
 
     public Page<Genre> getGenresByPartialName(String partialName, int pageNumber, int pageSize) {
-        var request = PageRequest.of(pageNumber, pageSize, Sort.by("genre_name"));
+        var request = PageRequest.of(pageNumber, pageSize, Sort.by("genreName"));
         return genreRepository.findGenresByGenreNameContaining(partialName, request);
     }
 
