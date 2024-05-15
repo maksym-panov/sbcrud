@@ -13,7 +13,7 @@ import static com.maksympanov.hneu.mjt.sbcrud.TestUtils.getRandomAlphabeticalStr
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class GenreServiceIntegrationTest {
+class GenreServiceTest {
 
     @Autowired
     private GenreService genreService;

@@ -94,7 +94,7 @@ public class JwtService {
 
     private JWTClaimsSet parseToken(String token) {
         var claims = parseTokenHelper(token);
-        if (!(claims.getAudience().contains("audience"))) {
+        if (!(claims.getAudience().contains("sbcrud_audience"))) {
             throw new AuthException("Wrong audience in JWT");
         }
 
