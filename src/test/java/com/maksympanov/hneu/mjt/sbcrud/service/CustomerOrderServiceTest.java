@@ -45,7 +45,7 @@ class CustomerOrderServiceTest {
     @BeforeEach
     void setUp() {
         testUser = serviceUserDao.createNewUser(
-                getRandomAlphabeticalString(10) + "@example.com",
+                getRandomAlphabeticalString(10) + "@maksympanov.com",
                 "passwordHash",
                 getRandomNumericString(10),
                 "Maksym",

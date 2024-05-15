@@ -43,7 +43,7 @@ class ServiceUserDaoTest {
     @DisplayName("Should create new user")
     void shouldCreateNewUser() {
         // Given
-        var email = getRandomAlphabeticalString(10) + "@example.com";
+        var email = getRandomAlphabeticalString(10) + "@maksympanov.com";
         var passwordHash = getRandomAlphabeticalString(10);
         var phoneNumber = getRandomNumericString(10);
         var firstName = getRandomAlphabeticalString(8);
@@ -108,7 +108,7 @@ class ServiceUserDaoTest {
     @DisplayName("Should get user by email (Throwable)")
     void shouldGetUserByEmailThrowable() {
         // Given
-        var email = getRandomAlphabeticalString(10) + "@example.com";
+        var email = getRandomAlphabeticalString(10) + "@maksympanov.com";
         var expectedUser = new ServiceUser();
         when(serviceUserRepository.findByEmail(email)).thenReturn(Optional.of(expectedUser));
 
@@ -125,7 +125,7 @@ class ServiceUserDaoTest {
     @DisplayName("Should throw exception if there is no such user by email")
     void shouldThrowExceptionIfNoSuchUserByEmail() {
         // Given
-        var notExistingEmail = getRandomAlphabeticalString(10) + "@example.com";
+        var notExistingEmail = getRandomAlphabeticalString(10) + "@maksympanov.com";
         var errorMessage = "Could not find ServiceUser with email: %s".formatted(notExistingEmail);
 
         // Then
